@@ -4,6 +4,17 @@
 
 require "sqlite3"
 
+DB_FILE_NAME = "songs.sqlite3.db"
+db = SQLite3::Database.new(DB_FILE_NAME)
+
+SONGS_NAME = "songs.name AS Song"
+GENRES_NAME = "genres.name AS Genre"
+ARTISTS_NAME = "artists.name AS Artist"
+ALBUMS_NAME = "albums.name AS Album"
+
+SQL_SELECT_SONGS = "SELECT #{SONGS_NAME}, #{GENRES_NAME}, #{ARTISTS_NAME}, #{ALBUMS_NAME} FROM WHERE songs.genre_id = genres.id AND songs.album_id - albums.id AND albums.artist_id = artists.id;"
+
+
 def welcome()
 	puts "Welcome to the music database!"
 	puts "   1. Display all song information."
@@ -17,10 +28,10 @@ end
 welcome()
 
 
-#DB_FILE_NAME = "songs.sqlite3.db"
+
 #SQL_SELECT_GENRES = "SELECT name FROM genres;"
 
-#db = SQLite3::Database.new(DB_FILE_NAME)
+
 
 #db.execute(SQL_SELECT_GENRES) do |row|
 #	puts row
