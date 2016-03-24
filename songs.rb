@@ -1,3 +1,7 @@
+# Kali Ruppert
+# Project 4
+# Working with RDBMS
+
 require "sqlite3"
 
 DB_FILE_NAME = "songs.sqlite3.db"
