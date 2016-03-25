@@ -17,6 +17,8 @@ SQL_SELECT_GENRES = "SELECT name FROM genres;"
 SQL_SELECT_ARTISTS = "SELECT name FROM artists;"
 SQL_SELECT_ALBUMS = "SELECT name FROM albums;"
 
+SQL_INSERT_GENRE = "INSERT INTO genres(name) VALUES(#{new_genre});"
+
 def welcome()
 	puts "Welcome to the music database!"
 	puts "   1. Display all song information."
@@ -28,15 +30,32 @@ def welcome()
 end
 
 welcome()
+input = gets.chomp
+
+case 
+when input == "1"
+	puts "\n" + "%-25s %-20s %0s %25s" % ["Song Name", "Genre", "Artist", "Album"]
+	puts "\n"
+	db.execute(SQL_SELECT_SONGS) do |song, genre, artist, album|
+		puts "%-25s %-20s %0s %25s" % [song, genre, artist, album]
+	end
+when input == "2"
+	puts "\n Genres in database: \n"
+	db.execute(SQL_SELECT_GENRES) do |genre|
+		puts genre
+	end
+	puts "\n Enter a new genre name:"
+	new_genre = gets.chomp
+	db.execute(SQL_INSERT_GENRE)
+when input == "3"
+	puts "Add new album"
+when input == "4"
+	puts "Add new artist"
+when input == "5"
+	puts "Add new song"
+end
+
+db.close
 
 
 
-
-
-
-
-#db.execute(SQL_SELECT_GENRES) do |row|
-#	puts row
-#end
-
-#db.close
