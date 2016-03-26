@@ -15,7 +15,7 @@ SQL_SELECT_ALBUMS = "SELECT * FROM albums;"
 SQL_INSERT_GENRE = "INSERT INTO genres (name) VALUES (?)"
 SQL_INSERT_ARTIST = "INSERT INTO artists (name) VALUES (?)"
 SQL_INSERT_ALBUM = "INSERT INTO albums (name, artist_id) VALUES (?, ?)"
-SQL_INSERT_SONG = "INSERT INTO songs (name, genre_id, album_id) VALUES (?, ?)"
+SQL_INSERT_SONG = "INSERT INTO songs (name, genre_id, album_id) VALUES (?, ?, ?)"
 
 def welcome()
 	puts "\nWelcome to the music database!"
@@ -58,7 +58,7 @@ when input == "3"
 	db.execute(SQL_SELECT_ARTISTS) do |id, artist|
 		puts "\s\s\s#{id}\t" + artist
 	end
-	puts "Select an artist ID number"
+	puts "Select an artist ID number:"
 	artist_id = gets.chomp.to_i
 	db.execute(SQL_INSERT_ALBUM, [new_album, artist_id])
 
@@ -72,7 +72,24 @@ when input == "4"
 	db.execute(SQL_INSERT_ARTIST, [new_artist])
 
 when input == "5"
-	puts "Add new song"
+	puts "Add a new song!"
+	puts "Enter a song name:"
+	new_song = gets.chomp
+	puts "\nGenres in database:"
+	puts "\s\s\sID\tGenre Name"
+	db.execute(SQL_SELECT_GENRES) do |id, genre|
+		puts "\s\s\s#{id}\t" + genre
+	end
+	puts "Select a genre ID number:"
+	genre_id = gets.chomp.to_i
+	puts "\nAlbums in database:"
+	puts "\s\s\sID\tAlbum Name"
+	db.execute(SQL_SELECT_ALBUMS) do |id, album|
+		puts "\s\s\s#{id}\t" + album
+	end
+	puts "Select an album ID number:"
+	album_id = gets.chomp.to_i
+	db.execute(SQL_INSERT_SONG, [new_song, genre_id, album_id])
 end
 
 db.close
