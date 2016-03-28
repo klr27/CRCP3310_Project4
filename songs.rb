@@ -7,7 +7,7 @@ require "sqlite3"
 DB_FILE_NAME = "songs.sqlite3.db"
 db = SQLite3::Database.new(DB_FILE_NAME)
 
-SQL_SELECT_SONGS = "SELECT songs.name, genres.name, artists.name, albums.name FROM songs, genres, artists, albums WHERE songs.genre_id = genres.id AND songs.album_id - albums.id AND albums.artist_id = artists.id;"
+SQL_SELECT_SONGS = "SELECT songs.name, genres.name, artists.name, albums.name FROM songs, genres, artists, albums WHERE songs.genre_id = genres.id AND songs.album_id = albums.id AND albums.artist_id = artists.id;"
 SQL_SELECT_GENRES = "SELECT * FROM genres;"
 SQL_SELECT_ARTISTS = "SELECT * FROM artists;"
 SQL_SELECT_ALBUMS = "SELECT * FROM albums;"
